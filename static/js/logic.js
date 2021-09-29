@@ -86,11 +86,40 @@ function createMap(earthquakes) {
   });
   
 
-}
+  // Create a layer control.
+  // Pass it our baseMaps and overlayMaps.
+  // Add the layer control to the map.
+  L.control.layers(baseMaps, overlayMaps, {
+    collapsed: false
+  }).addTo(myMap);
+
+
+  // Set up the legend.
+  var legend = L.control({ position: "bottomright" });
+  legend.onAdd = function() {
+    var div = L.DomUtil.create("div", "info legend");
+        magnitude = [0, 1, 2, 3, 4, 5]
+       labels=[]
+        div.innerHTML += "<h1>Magnitude</h1>" 
+    for (var i = 0; i<magnitude.length; i++){
+      div.innerHTML += 
+     
+        '<i style="background:' + markerColor(magnitude[i]) + '"> ' +
+        magnitude[i] + (magnitude[i + 1] ? '&ndash;' + magnitude[i + 1] + '</i><br>' : '+');
+
 }
 
+return div;
+};
+
+
+  // Adding the legend to the map
+  legend.addTo(myMap);
+
+}
 
 
 
   
 
+}
